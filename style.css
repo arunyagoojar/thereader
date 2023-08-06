@@ -12,7 +12,7 @@ body {
     line-height: 1.5;
     background-color: #f8f3eb;
     color: #484847;
-    padding-bottom: 5rem;
+    padding-bottom: 1.5rem;
 }
 
 img {
@@ -430,4 +430,20 @@ img {
 
 :focus {
     outline: 0;
+}
+
+.footer{
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+.footer img{
+    filter: invert();
+    width: 40px;
+}
+.footer a{
+    transition: 0.5s;
+}
+.footer a:hover{
+    transform: scale(1.1);
 }
