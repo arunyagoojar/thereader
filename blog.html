@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title id="head-title"></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <!-- partial:index.partial.html -->
+    <header class="header responsive-wrapper">
+        <div class="header-left">
+            <img src="reader-logo.png" />
+        </div>
+    </header>
+    <main class="responsive-wrapper-blog">
+        <div class="title-card">
+            <h2 class="article-title article-title--medium" id="post-title"></h2>
+            <p class="article-title article-title--medium" style="font-weight: 300; font-size: 20px;
+    color: rgba(255,255,255,0.8);" id="post-date"></p>
+            <div id="post-div"></div>
+        </div>
+
+        <div id="post-image" style="display: none"></div>
+        <div id="post-content" class="blog"></div>
+    </main>
+
+    <!-- partial -->
+    <script>
+        // Extract the query parameters from the URL
+        const params = new URLSearchParams(window.location.search);
+        const title = params.get('title');
+        const date = params.get('date');
+
+        // Find the post in the JSON data that matches the title and date parameters
+        fetch('data.json')
+            .then(res => res.json())
+            .then(data => {
+                const post = data.find(p => p.title === title && p.date === date);
+                if (post) {
+                    const blogPostTitle = document.querySelector('#post-title');
+                    const blogPostDate = document.querySelector('#post-date');
+                    const blogPostContent = document.querySelector('#post-content');
+                    const blogPostImage = document.querySelector('#post-image');
+                    const blogPostDiv = document.querySelector('#post-div');
+
+
+                    blogPostTitle.textContent = post.title;
+                    blogPostDate.textContent = post.date;
+                    blogPostContent.innerHTML = post.content;
+                    blogPostImage.innerHTML = `<img src="${post.image}" alt="${post.title}" />`;
+
+                    blogPostDiv.style.backgroundImage = `url("${post.image}")`;
+
+                } else {
+                    // Handle error: post not found
+                }
+            });
+
+    </script>
+    <script src="data.json"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
